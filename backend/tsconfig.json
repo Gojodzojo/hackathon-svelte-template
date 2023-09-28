@@ -1,10 +1,5 @@
 {
   "extends": "../tsconfig.base.json",
-  "references": [
-    {
-      "path": "../common"
-    }
-  ],
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",

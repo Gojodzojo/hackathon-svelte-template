@@ -5,7 +5,7 @@
 	],
 	"references": [
 		{
-			"path": "../common"
+			"path": "../backend"
 		}
 	],
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias

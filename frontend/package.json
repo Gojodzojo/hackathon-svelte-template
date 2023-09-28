@@ -39,7 +39,7 @@
   "type": "module",
   "dependencies": {
     "@floating-ui/dom": "1.5.3",
-    "common": "^1.0.0",
+    "backend": "^1.0.0",
     "svelte-icons": "^2.1.0",
     "svelte-media-queries": "^1.6.1"
   }

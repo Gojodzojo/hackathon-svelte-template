@@ -1,8 +1,9 @@
 import { writable, type Writable } from "svelte/store";
 import { apiFetch } from "./apiFetch";
-import type { UserData } from "common/models/user";
-import type { CredentialsLoginResponse, TokenLoginResponse } from "common/models/responseTypes";
-import type { AccessTokenRequest, Credentials } from "common/models/requestTypes";
+import type { UserData } from "backend/src/db";
+import type { TokenLoginRequest, TokenLoginResponse } from "backend/src/endpoints/token";
+import type { LoginRequest, LoginResponse } from "backend/src/endpoints/login";
+import type { RegisterRequest, RegisterResponse } from "backend/src/endpoints/register";
 
 export interface AuthState {
     userData: UserData;
@@ -22,7 +23,7 @@ export async function tryLoginFromCookie() {
 
     if (refreshToken === '') return;
 
-    const refResp = await apiFetch<TokenLoginResponse, AccessTokenRequest>('/api/token', 'POST', { refreshToken });
+    const refResp = await apiFetch<TokenLoginResponse, TokenLoginRequest>('/api/token', 'POST', { refreshToken });
 
     if ('status' in refResp) {
         authStore.set("LOGGED_OUT");
@@ -33,7 +34,7 @@ export async function tryLoginFromCookie() {
 }
 
 export async function login(username: string, password: string) {
-    const resp = await apiFetch<CredentialsLoginResponse, Credentials>('/api/login', 'POST', { username, password });
+    const resp = await apiFetch<LoginResponse, LoginRequest>('/api/login', 'POST', { username, password });
 
     if ("status" in resp) {
         throw resp;
@@ -44,7 +45,7 @@ export async function login(username: string, password: string) {
 }
 
 export async function register(username: string, password: string) {
-    const resp = await apiFetch<CredentialsLoginResponse, Credentials>('/api/register', 'PUT', { username, password });
+    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/api/register', 'PUT', { username, password });
 
     if ("status" in resp) {
         throw resp;

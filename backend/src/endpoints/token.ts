@@ -1,16 +1,25 @@
-import { AccessTokenRequest } from "common/models/requestTypes";
-import { TokenLoginResponse } from "common/models/responseTypes";
 import { sign, verify } from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../index";
-import { TypedRequest, TypedResponse } from "../helperTypes";
-import { fakeUserDB } from "../db";
+import { Request, Response, StatusResponse } from "../helperTypes";
+import { UserData, fakeUserDB } from "../db";
 
-export function token(req: TypedRequest<AccessTokenRequest>, res: TypedResponse<TokenLoginResponse>) {
+export type TokenLoginRequest = {
+    refreshToken: string;
+};
+
+export const BAD_REFRESH_TOKEN = 'Bad refresh token';
+export const USR_NOT_EXISTS = 'User does not exist';
+export type TokenLoginResponse = StatusResponse<typeof BAD_REFRESH_TOKEN | typeof USR_NOT_EXISTS> | {
+    userData: UserData;
+    accessToken: string;
+};
+
+export function token(req: Request<TokenLoginRequest>, res: Response<TokenLoginResponse>) {
     const { refreshToken } = req.body;
 
     verify(refreshToken, REFRESH_TOKEN_SECRET, async (err, payload) => {
         if (err || !payload || typeof payload === 'string') {
-            res.status(401).json({ status: 'Bad refresh token' });
+            res.status(401).json({ status: BAD_REFRESH_TOKEN });
             return;
         }
 
@@ -18,7 +27,7 @@ export function token(req: TypedRequest<AccessTokenRequest>, res: TypedResponse<
         const user = fakeUserDB.find(({ userData }) => userData.id === id);
 
         if (!user) {
-            res.status(401).json({ status: 'User does not exist' });
+            res.status(401).json({ status: USR_NOT_EXISTS });
             return;
         }
 
