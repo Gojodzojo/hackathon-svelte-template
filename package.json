@@ -6,8 +6,10 @@
         "dev-frontend": "npm run dev --workspace frontend",
         "dev-backend": "npm run dev --workspace backend",
         "build-frontend": "npm run build --workspace frontend",
-        "replace-build": "rm -rf backend/public && mv frontend/build backend/public",
-        "build": "npm run build --workspace frontend && npm run replace-build"
+        "build-backend": "npm run build --workspace backend",
+        "replace-frontend-build": "rimraf backend/build/src/public && mv frontend/build backend/build/src/public",
+        "build": "npm run build-frontend && npm run build-backend && npm run replace-frontend-build",
+        "run-build": "cd backend/build/src && node index.js"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",

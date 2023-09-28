@@ -32,5 +32,5 @@ app.put('/api/register', register);
 app.post('/api/token', token);
 
 app.listen(API_PORT, () => {
-    console.log(`Example app listening on port ${API_PORT}`);
+    console.log(`App listening on port ${API_PORT}`);
 });

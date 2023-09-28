@@ -25,12 +25,12 @@
 		{
 			title: 'Dashboard',
 			icon: MdDashboard,
-			href: '/dashboard'
+			href: '/dashboard/'
 		},
 		{
 			title: 'Form',
 			icon: FaWpforms,
-			href: '/form'
+			href: '/form/'
 		}
 	];
 

@@ -24,6 +24,7 @@ export function token(req: Request<TokenLoginRequest>, res: Response<TokenLoginR
         }
 
         const { id } = payload;
+        console.log(id);
         const user = fakeUserDB.find(({ userData }) => userData.id === id);
 
         if (!user) {
