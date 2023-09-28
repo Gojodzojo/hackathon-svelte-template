@@ -1,6 +1,6 @@
 import { get } from 'svelte/store';
 import { authStore } from './authentication';
-import { API_PORT } from 'backend/src/index';
+import { API_PORT } from 'backend/src/constants';
 import { BAD_ACCESS_TOKEN, type StatusResponse } from 'backend/src/helperTypes';
 import type { BAD_REFRESH_TOKEN, TokenLoginRequest, TokenLoginResponse, USR_NOT_EXISTS } from 'backend/src/endpoints/token';
 
