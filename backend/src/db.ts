@@ -1,4 +1,4 @@
-import { UserData } from "$common/models/user";
+import { UserData } from 'common/models/user';
 
 export interface UserDbEntry {
     userData: UserData;

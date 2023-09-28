@@ -1,11 +1,11 @@
-import { Credentials } from "$common/models/requestTypes";
-import { CredentialsLoginResponse } from "$common/models/responseTypes";
+import { Credentials } from "common/models/requestTypes";
+import { CredentialsLoginResponse } from "common/models/responseTypes";
 import { hash } from "bcrypt";
 import { sign } from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../index";
 import { fakeUserDB } from "../db";
 import { TypedRequest, TypedResponse } from "../helperTypes";
-import { UserData } from "$common/models/user";
+import { UserData } from "common/models/user";
 
 const SALT_ROUNDS = 10;
 

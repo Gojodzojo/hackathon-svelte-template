@@ -1,5 +1,5 @@
-import { AccessTokenRequest } from "$common/models/requestTypes";
-import { TokenLoginResponse } from "$common/models/responseTypes";
+import { AccessTokenRequest } from "common/models/requestTypes";
+import { TokenLoginResponse } from "common/models/responseTypes";
 import { sign, verify } from "jsonwebtoken";
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../index";
 import { TypedRequest, TypedResponse } from "../helperTypes";

@@ -1,10 +1,11 @@
 import { get } from 'svelte/store';
 import { authStore } from './authentication';
-import type { TokenLoginResponse, StatusResponse } from '$common/models/responseTypes';
-import type { AccessTokenRequest } from '$common/models/requestTypes';
+import type { TokenLoginResponse, StatusResponse } from 'common/models/responseTypes';
+import type { AccessTokenRequest } from 'common/models/requestTypes';
+import { API_PORT } from 'common/constants';
 
 
-const API_BASE = import.meta.env.DEV ? 'http://localhost:3000' : '';
+const API_BASE = import.meta.env.DEV ? `http://localhost:${API_PORT}` : '';
 
 export async function apiFetch<Resp extends object, Req extends object = object>(url: string, method: string, body?: Req): Promise<Resp | StatusResponse> {
 	try {

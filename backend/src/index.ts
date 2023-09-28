@@ -4,6 +4,7 @@ import { config as loadEnv } from 'dotenv';
 import { login } from './endpoints/login';
 import { register } from './endpoints/register';
 import { token } from './endpoints/token';
+import { API_PORT } from 'common/constants';
 
 interface EnvValues extends NodeJS.ProcessEnv {
     REFRESH_TOKEN_SECRET: string;
@@ -18,7 +19,6 @@ if (!(REFRESH_TOKEN_SECRET && ACCESS_TOKEN_SECRET)) {
     process.exit(1);
 }
 
-const port = 3000;
 const app = express();
 
 // Middleware
@@ -31,6 +31,6 @@ app.post('/api/login', login);
 app.put('/api/register', register);
 app.post('/api/token', token);
 
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+app.listen(API_PORT, () => {
+    console.log(`Example app listening on port ${API_PORT}`);
 });

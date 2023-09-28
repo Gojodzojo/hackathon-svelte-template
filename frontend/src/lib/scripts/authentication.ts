@@ -1,8 +1,8 @@
 import { writable, type Writable } from "svelte/store";
 import { apiFetch } from "./apiFetch";
-import type { UserData } from "$common/models/user";
-import type { CredentialsLoginResponse, TokenLoginResponse } from "$common/models/responseTypes";
-import type { AccessTokenRequest, Credentials } from "$common/models/requestTypes";
+import type { UserData } from "common/models/user";
+import type { CredentialsLoginResponse, TokenLoginResponse } from "common/models/responseTypes";
+import type { AccessTokenRequest, Credentials } from "common/models/requestTypes";
 
 export interface AuthState {
     userData: UserData;
@@ -19,6 +19,9 @@ export function logout() {
 
 export async function tryLoginFromCookie() {
     const refreshToken = getRefreshToken();
+
+    if (refreshToken === '') return;
+
     const refResp = await apiFetch<TokenLoginResponse, AccessTokenRequest>('/api/token', 'POST', { refreshToken });
 
     if ('status' in refResp) {

@@ -1,4 +1,4 @@
-import type { StatusResponse } from "$common/models/responseTypes";
+import type { StatusResponse } from "common/models/responseTypes";
 import type { ToastSettings, ToastStore } from "@skeletonlabs/skeleton";
 
 export function showErrorToast(message: string, toastStore: ToastStore) {

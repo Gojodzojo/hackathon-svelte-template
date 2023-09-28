@@ -1,7 +1,7 @@
 import { ACCESS_TOKEN_SECRET, REFRESH_TOKEN_SECRET } from "../index";
 import { TypedRequest, TypedResponse } from "../helperTypes";
-import { Credentials } from '$common/models/requestTypes';
-import { CredentialsLoginResponse } from '$common/models/responseTypes';
+import { Credentials } from 'common/models/requestTypes';
+import { CredentialsLoginResponse } from 'common/models/responseTypes';
 import { compare } from "bcrypt";
 import { fakeUserDB } from "../db";
 import { sign } from "jsonwebtoken";
