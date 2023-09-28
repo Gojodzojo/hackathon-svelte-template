@@ -1,14 +1,21 @@
 {
-	"extends": "./.svelte-kit/tsconfig.json",
+	"extends": [
+		"./.svelte-kit/tsconfig.json",
+		"../tsconfig.base.json"
+	],
 	"compilerOptions": {
-		"allowJs": true,
-		"checkJs": true,
-		"esModuleInterop": true,
-		"forceConsistentCasingInFileNames": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"sourceMap": true,
-		"strict": true
+		"baseUrl": ".",
+		"paths": {
+			"$common/*": [
+				"../common/*"
+			],
+			"$lib": [
+				"./src/lib"
+			],
+			"$lib/*": [
+				"./src/lib/*"
+			]
+		}
 	}
 	// Path aliases are handled by https://kit.svelte.dev/docs/configuration#alias
 	//

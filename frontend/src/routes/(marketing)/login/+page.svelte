@@ -1,35 +1,34 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import IconComponent from '$lib/components/IconComponent.svelte';
 	import { GoEye, GoEyeClosed } from '$lib/icons';
-	import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	import { getToastStore } from '@skeletonlabs/skeleton';
+	import { login } from '$lib/scripts/authentication';
+	import { showApiErrorToast, showErrorToast } from '$lib/scripts/errorToast';
+	import { goto } from '$app/navigation';
 
 	const toastStore = getToastStore();
-	let login = '';
+	let username = '';
 	let password = '';
 	let hidePassword = true;
+	let loginPromise: Promise<any> | undefined;
 
 	$: passwordInputType = hidePassword ? 'password' : 'text';
 
 	function submit() {
 		let error = '';
 
-		if (login === '') {
+		if (username === '') {
 			error = "Login can't be empty";
 		} else if (password === '') {
 			error = "Password can't be empty";
 		}
 
 		if (error !== '') {
-			const t: ToastSettings = {
-				background: 'variant-filled-error',
-				message: error,
-				hideDismiss: true,
-				timeout: 5000
-			};
-			toastStore.trigger(t);
+			showErrorToast(error, toastStore);
 		} else {
-			setTimeout(() => goto('/dashboard'), 0); // setTimeout is to fix some weird bug
+			loginPromise = login(username, password)
+				.then(() => setTimeout(() => goto('/dashboard'), 1))
+				.catch(showApiErrorToast(toastStore));
 		}
 	}
 
@@ -50,8 +49,8 @@
 
 	<form on:submit={submit} class="card p-4 space-y-4">
 		<label class="label">
-			<span>Login</span>
-			<input bind:value={login} class="input" type="text" placeholder="Login" />
+			<span>Username</span>
+			<input bind:value={username} class="input" type="text" placeholder="Username" />
 		</label>
 
 		<label class="label">

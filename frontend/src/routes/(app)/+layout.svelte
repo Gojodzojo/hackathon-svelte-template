@@ -11,6 +11,13 @@
 		TabAnchor
 	} from '@skeletonlabs/skeleton';
 	import MediaQuery from 'svelte-media-queries';
+	import { authStore, logout } from '$lib/scripts/authentication';
+	import { goto } from '$app/navigation';
+	import { browser } from '$app/environment';
+
+	$: if (browser && $authStore === 'LOGGED_OUT') {
+		setTimeout(() => goto('/login'), 0); // setTimeout is to fix some weird bug
+	}
 
 	let isMobile: boolean = false;
 
@@ -27,8 +34,9 @@
 		}
 	];
 
-	function logout() {
-		console.log('logout');
+	function signOut() {
+		logout();
+		setTimeout(() => goto('/'), 1);
 	}
 </script>
 
@@ -75,7 +83,7 @@
 				{/each}
 
 				<svelte:fragment slot="trail">
-					<AppRailAnchor href="" on:click={logout}>
+					<AppRailAnchor href="" on:click={signOut}>
 						<IconComponent icon={GoSignOut} slot="lead" />
 						<span>Logout</span>
 					</AppRailAnchor>
