@@ -61,11 +61,11 @@ export async function register(username: string, password: string) {
 }
 
 function saveRefreshToken(token: string) {
-    document.cookie = `refreshToken=${token}; max-age=31536000;`;
+    document.cookie = `refreshToken=${token}; max-age=31536000; path=/;`;
 }
 
 function removeRefreshToken() {
-    document.cookie = "refreshToken=; max-age=0;";
+    document.cookie = "refreshToken=0; max-age=0; path=/;";
 }
 
 function getRefreshToken() {
