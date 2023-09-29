@@ -21,12 +21,15 @@ export function logout() {
 export async function tryLoginFromCookie() {
     const refreshToken = getRefreshToken();
 
-    if (refreshToken === '') return;
+    if (refreshToken === '') {
+        logout();
+        return;
+    }
 
     const refResp = await apiFetch<TokenLoginResponse, TokenLoginRequest>('/api/token', 'POST', { refreshToken });
 
     if ('status' in refResp) {
-        authStore.set("LOGGED_OUT");
+        logout();
         return;
     }
 
@@ -41,6 +44,7 @@ export async function login(username: string, password: string) {
     }
 
     authStore.set(resp);
+    // removeRefreshToken();
     saveRefreshToken(resp.refreshToken);
 }
 
@@ -52,6 +56,7 @@ export async function register(username: string, password: string) {
     }
 
     authStore.set(resp);
+    // removeRefreshToken();
     saveRefreshToken(resp.refreshToken);
 }
 
