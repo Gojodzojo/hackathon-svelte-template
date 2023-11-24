@@ -2,7 +2,7 @@
 	import IconComponent from '$lib/components/IconComponent.svelte';
 	import { GoEye, GoEyeClosed } from '$lib/icons';
 	import { getToastStore } from '@skeletonlabs/skeleton';
-	import { login } from '$lib/scripts/authentication';
+	import { login } from '$lib/scripts/auth';
 	import { showApiErrorToast, showErrorToast } from '$lib/scripts/errorToast';
 	import { goto } from '$app/navigation';
 

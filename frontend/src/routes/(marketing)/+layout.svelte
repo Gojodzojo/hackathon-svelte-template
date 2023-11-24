@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { AppShell, AppBar } from '@skeletonlabs/skeleton';
-	import { authStore } from '$lib/scripts/authentication';
+	import { authStore } from '$lib/scripts/auth';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 

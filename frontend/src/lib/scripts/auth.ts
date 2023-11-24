@@ -1,12 +1,10 @@
 import { writable, type Writable } from "svelte/store";
 import { apiFetch } from "./apiFetch";
-import type { UserData } from "backend/src/db";
-import type { TokenLoginRequest, TokenLoginResponse } from "backend/src/endpoints/token";
-import type { LoginRequest, LoginResponse } from "backend/src/endpoints/login";
-import type { RegisterRequest, RegisterResponse } from "backend/src/endpoints/register";
+import type { TokenLoginRequest, TokenLoginResponse } from "backend/src/endpoints/auth/token";
+import type { LoginRequest, LoginResponse } from "backend/src/endpoints/auth/login";
+import type { RegisterRequest, RegisterResponse } from "backend/src/endpoints/auth/register";
 
 export interface AuthState {
-    userData: UserData;
     accessToken: string;
     refreshToken: string;
 }
@@ -26,9 +24,9 @@ export async function tryLoginFromCookie() {
         return;
     }
 
-    const refResp = await apiFetch<TokenLoginResponse, TokenLoginRequest>('/api/token', 'POST', { refreshToken });
+    const refResp = await apiFetch<TokenLoginResponse, TokenLoginRequest>('/auth/token', 'POST', { refreshToken });
 
-    if ('status' in refResp) {
+    if ('error' in refResp) {
         logout();
         return;
     }
@@ -37,26 +35,24 @@ export async function tryLoginFromCookie() {
 }
 
 export async function login(username: string, password: string) {
-    const resp = await apiFetch<LoginResponse, LoginRequest>('/api/login', 'POST', { username, password });
+    const resp = await apiFetch<LoginResponse, LoginRequest>('/auth/login', 'POST', { username, password });
 
-    if ("status" in resp) {
+    if ("error" in resp) {
         throw resp;
     }
 
     authStore.set(resp);
-    // removeRefreshToken();
     saveRefreshToken(resp.refreshToken);
 }
 
 export async function register(username: string, password: string) {
-    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/api/register', 'PUT', { username, password });
+    const resp = await apiFetch<RegisterResponse, RegisterRequest>('/auth/register', 'PUT', { username, password });
 
-    if ("status" in resp) {
+    if ("error" in resp) {
         throw resp;
     }
 
     authStore.set(resp);
-    // removeRefreshToken();
     saveRefreshToken(resp.refreshToken);
 }
 

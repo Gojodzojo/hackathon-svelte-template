@@ -31,6 +31,6 @@ export interface Response<ResBody = never> extends ExpressResponse {
     json: Send<ResBody, this>;
 }
 
-export type StatusResponse<T extends string> = {
-    status: T;
+export type ErrorResponse<T extends string> = {
+    error: T;
 };

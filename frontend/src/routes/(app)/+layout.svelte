@@ -11,7 +11,7 @@
 		TabAnchor
 	} from '@skeletonlabs/skeleton';
 	import MediaQuery from 'svelte-media-queries';
-	import { authStore, logout } from '$lib/scripts/authentication';
+	import { authStore, logout } from '$lib/scripts/auth';
 	import { goto } from '$app/navigation';
 	import { browser } from '$app/environment';
 

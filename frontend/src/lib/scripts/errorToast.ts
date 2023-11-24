@@ -1,5 +1,5 @@
 import type { ToastSettings, ToastStore } from "@skeletonlabs/skeleton";
-import type { StatusResponse } from "backend/src/helperTypes";
+import type { ErrorResponse } from "backend/src/helperTypes";
 
 export function showErrorToast(message: string, toastStore: ToastStore) {
     const t: ToastSettings = {
@@ -12,7 +12,7 @@ export function showErrorToast(message: string, toastStore: ToastStore) {
 }
 
 export function showApiErrorToast(toastStore: ToastStore) {
-    return (status: StatusResponse<string>) => {
-        showErrorToast(status.status, toastStore);
+    return ({ error }: ErrorResponse<string>) => {
+        showErrorToast(error, toastStore);
     };
 }

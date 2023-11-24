@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { register } from '$lib/scripts/authentication';
+	import { register } from '$lib/scripts/auth';
 	import { showApiErrorToast, showErrorToast } from '$lib/scripts/errorToast';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 

@@ -2,7 +2,7 @@
 	import '../app.postcss';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { Toast, initializeStores, storePopup } from '@skeletonlabs/skeleton';
-	import { authStore, tryLoginFromCookie } from '$lib/scripts/authentication';
+	import { authStore, tryLoginFromCookie } from '$lib/scripts/auth';
 	import { browser } from '$app/environment';
 	import PageLoading from '$lib/components/PageLoading.svelte';
 
