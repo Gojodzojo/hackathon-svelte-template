@@ -3,19 +3,8 @@ import { User } from "@prisma/client";
 import { comparePasswords } from "../../utils/hashPassword";
 import { generateTokens } from "../../utils/token";
 import database from "../../utils/database";
+import { INT_LOGIN_ERROR, LoginRequest, LoginResponse, WRONG_PASSWORD, WRONG_USERNAME } from "./authTypes";
 
-export type LoginRequest = {
-    username: string;
-    password: string;
-};
-
-export const WRONG_USERNAME = 'Wrong username';
-export const WRONG_PASSWORD = 'Wrong password';
-export const INT_LOGIN_ERROR = 'Internal login error';
-export type LoginResponse = ErrorResponse<typeof WRONG_USERNAME | typeof WRONG_PASSWORD | typeof INT_LOGIN_ERROR> | {
-    refreshToken: string;
-    accessToken: string;
-};
 
 export async function login(req: Request<LoginRequest>, res: Response<LoginResponse>) {
     const { username, password } = req.body;
@@ -33,7 +22,7 @@ export async function login(req: Request<LoginRequest>, res: Response<LoginRespo
             return;
         }
     } catch (error) {
-        res.status(400).send({ error: INT_LOGIN_ERROR });
+        res.status(400).json({ error: INT_LOGIN_ERROR });
         return;
     }
 

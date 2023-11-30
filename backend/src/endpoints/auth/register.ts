@@ -4,19 +4,8 @@ import { User } from "@prisma/client";
 import { generateTokens } from "../../utils/token";
 import { hashPassword } from "../../utils/hashPassword";
 import database from "../../utils/database";
+import { INT_REG_ERROR, RegisterRequest, RegisterResponse, USRNM_PSW_SPECIFIED, USR_EXISTS } from "./authTypes";
 
-export type RegisterRequest = {
-    username: string;
-    password: string;
-};
-
-export const USRNM_PSW_SPECIFIED = 'username and password must be specified';
-export const USR_EXISTS = 'User already exists';
-export const INT_REG_ERROR = 'Internal register error';
-export type RegisterResponse = ErrorResponse<typeof USRNM_PSW_SPECIFIED | typeof USR_EXISTS | typeof INT_REG_ERROR> | {
-    refreshToken: string;
-    accessToken: string;
-};
 
 export async function register(req: Request<RegisterRequest>, res: Response<RegisterResponse>) {
     const { username, password } = req.body;
@@ -39,7 +28,7 @@ export async function register(req: Request<RegisterRequest>, res: Response<Regi
         }
     } catch (e) {
         console.log(e)
-        res.status(400).send({ error: INT_REG_ERROR });
+        res.status(400).json({ error: INT_REG_ERROR });
         return;
     }
 
@@ -49,7 +38,7 @@ export async function register(req: Request<RegisterRequest>, res: Response<Regi
     try {
         user = await database.user.create({ data: { username, hashedPassword } });
     } catch (e) {
-        res.status(400).send({ error: INT_REG_ERROR });
+        res.status(400).json({ error: INT_REG_ERROR });
         return;
     }
 
